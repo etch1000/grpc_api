@@ -12,7 +12,10 @@ pub struct GreeterP {}
 
 #[tonic::async_trait]
 impl Greeter for GreeterP {
-    async fn say_hello(&self, request: Request<HelloRequest>) -> Result<Response<HelloReply>, Status> {
+    async fn say_hello(
+        &self,
+        request: Request<HelloRequest>,
+    ) -> Result<Response<HelloReply>, Status> {
         println!("Got a request from : {:#?}", request.remote_addr());
 
         let reply = HelloReply {
@@ -31,7 +34,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("GreeterServer Listening on : {address:#?}");
 
-    Server::builder().add_service(GreeterServer::new(greeter)).serve(address).await?;
+    Server::builder()
+        .add_service(GreeterServer::new(greeter))
+        .serve(address)
+        .await?;
 
     Ok(())
-} 
+}
